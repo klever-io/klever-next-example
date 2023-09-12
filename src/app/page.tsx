@@ -52,11 +52,11 @@ export default function Home() {
   }
 
   return (
-    <main
-      onSubmit={onSubmit}
-      className="w-screen h-screen flex items-center justify-center"
-    >
-      <form className="max-w-xs p-4 border border-slate-300 rounded-md shadow-sm">
+    <main className="w-screen h-screen flex items-center justify-center">
+      <form
+        onSubmit={onSubmit}
+        className="max-w-xs p-4 border border-slate-300 rounded-md shadow-sm"
+      >
         <div>
           <h1 className="font-bold text-lg">Klever Extension Playground</h1>
           <h3 className="text-sm">Sign in with extension</h3>
