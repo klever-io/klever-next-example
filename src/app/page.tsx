@@ -2,14 +2,16 @@
 
 import { Button } from "@/components/button";
 import { useToast } from "@/components/ui/use-toast";
-import { authKey, signMessage } from "@/config";
-import { setCookie } from "cookies-next";
+import { signMessage } from "@/config";
+import { useAuth } from "@/contexts/auth-context";
+import { web } from "@klever/sdk-web";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const { setAddress } = useAuth();
   const router = useRouter();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -34,11 +36,13 @@ export default function Home() {
         address
       );
 
+      web.setProvider(window.kleverWeb.provider);
+
       if (!result) {
         throw Error("Invalid signature");
       }
 
-      setCookie(authKey, address);
+      setAddress(address);
 
       router.push("/private");
     } catch (error) {

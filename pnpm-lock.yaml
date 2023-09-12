@@ -4,6 +4,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.1.1
     version: 3.3.1(react-hook-form@7.46.1)
+  '@klever/sdk-web':
+    specifier: ^1.0.4
+    version: 1.0.4
   '@radix-ui/react-toast':
     specifier: ^1.1.4
     version: 1.1.4(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
@@ -182,6 +185,19 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: false
 
+  /@klever/kleverweb@1.1.0:
+    resolution: {integrity: sha512-Y+KUq1hEKyFFxZWjp6yCK4h1WWplf1xGL3UulmJEcoObXxtgVlfZdnmwY5aF/kWo38gTiqKsTrCd5x3VkRR3eA==}
+    engines: {node: ^12.22 || ^14 || >=16}
+    dependencies:
+      '@protobuf-ts/plugin': 2.9.1
+    dev: false
+
+  /@klever/sdk-web@1.0.4:
+    resolution: {integrity: sha512-O/CKX1TQGGNF9H4lyXNZSjtw+L7VNBO4iuNiMIaA9uVqgKPIRJ0qrNmjVlsYZxy7VLzaBVo13bC84GXbCwPSrw==}
+    dependencies:
+      '@klever/kleverweb': 1.1.0
+    dev: false
+
   /@next/env@13.4.19:
     resolution: {integrity: sha512-FsAT5x0jF2kkhNkKkukhsyYOrRqtSxrEhfliniIq0bwWbuXLgyt3Gv0Ml+b91XwjwArmuP7NxCiGd++GGKdNMQ==}
     dev: false
@@ -292,6 +308,39 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
+    dev: false
+
+  /@protobuf-ts/plugin-framework@2.9.1:
+    resolution: {integrity: sha512-/4sHdsXjp6KKkbpcCLUHpMfdYsCaqqQHRAwoxVzHmltsotw06B/K9HglZtkQx0IpLO4eeF3vNr3n7qzjD3e2zA==}
+    dependencies:
+      '@protobuf-ts/runtime': 2.9.1
+      typescript: 3.9.10
+    dev: false
+
+  /@protobuf-ts/plugin@2.9.1:
+    resolution: {integrity: sha512-svkFSyFgTtaLdDFPGvd6cTu8qK5Nul5RizDCTcv0xWRzcPWtMiqbuCLKCv6E9gdpnAs3MPeQTnSABB2+NhfWBg==}
+    hasBin: true
+    dependencies:
+      '@protobuf-ts/plugin-framework': 2.9.1
+      '@protobuf-ts/protoc': 2.9.1
+      '@protobuf-ts/runtime': 2.9.1
+      '@protobuf-ts/runtime-rpc': 2.9.1
+      typescript: 3.9.10
+    dev: false
+
+  /@protobuf-ts/protoc@2.9.1:
+    resolution: {integrity: sha512-/q2iVDwVDijfZlFZnnm3W6ALbybNskNSww88TfYBaJH49PuQMqhcXUPRu28UouJr9sc/Lr5k6t0TB9Nff3UIsA==}
+    hasBin: true
+    dev: false
+
+  /@protobuf-ts/runtime-rpc@2.9.1:
+    resolution: {integrity: sha512-pzO20J6s07LTWcj8hKAXh/dAacU5HIVir6SANKXXH8G0pn0VIIB4FFECq5Hbv25/8PQoOGZ7iApq/DMHaSjGhg==}
+    dependencies:
+      '@protobuf-ts/runtime': 2.9.1
+    dev: false
+
+  /@protobuf-ts/runtime@2.9.1:
+    resolution: {integrity: sha512-ZTc8b+pQ6bwxZa3qg9/IO/M/brRkvr0tic9cSGgAsDByfPrtatT2300wTIRLDk8X9WTW1tT+FhyqmcrbMHTeww==}
     dev: false
 
   /@radix-ui/primitive@1.0.1:
@@ -2842,6 +2891,12 @@ packages:
       call-bind: 1.0.2
       for-each: 0.3.3
       is-typed-array: 1.1.12
+    dev: false
+
+  /typescript@3.9.10:
+    resolution: {integrity: sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: false
 
   /typescript@5.2.2:

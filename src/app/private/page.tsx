@@ -2,8 +2,13 @@
 
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
+import { toast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/auth-context";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChangeEvent } from "react";
+import { ITransfer, TransactionType, web } from "@klever/sdk-web";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -15,6 +20,13 @@ const sendFormSchema = z.object({
 type SendFormValues = z.infer<typeof sendFormSchema>;
 
 export default function Page() {
+  const router = useRouter();
+
+  const { address } = useAuth();
+  if (!address) {
+    router.replace("/");
+  }
+
   const {
     register,
     handleSubmit,
@@ -22,13 +34,60 @@ export default function Page() {
   } = useForm<SendFormValues>({
     resolver: zodResolver(sendFormSchema),
   });
+  const [loading, setLoading] = useState(false);
 
   function handleValueChange(event: ChangeEvent<HTMLInputElement>) {
     event.target.value = event.target.value.replace(/[^0-9]/g, "");
   }
 
-  function send(data: SendFormValues) {
-    console.log(data);
+  async function send({ address, value }: SendFormValues) {
+    setLoading(true);
+
+    try {
+      const precision = 6;
+
+      const payload: ITransfer = {
+        receiver: address,
+        amount: Number(value) * 10 ** precision,
+        kda: "KLV",
+      };
+
+      const unsignedTransaction = await web.buildTransaction([
+        {
+          payload,
+          type: TransactionType.Transfer,
+        },
+      ]);
+
+      const signedTransaction = await web.signTransaction(unsignedTransaction);
+      const { data, error } = await web.broadcastTransactions([
+        signedTransaction,
+      ]);
+      if (error.length > 0) {
+        throw new Error(error);
+      }
+
+      const hash = data.txsHashes[0];
+
+      toast({
+        title: "Successfully send value!",
+        description: (
+          <Link
+            target="_blank"
+            href={`https://testnet.kleverscan.org/transaction/${hash}`}
+          >
+            <p className="max-w-xs truncate underline">{hash}</p>
+          </Link>
+        ),
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: String(error),
+      });
+    }
+
+    setLoading(false);
   }
 
   return (
@@ -52,7 +111,7 @@ export default function Page() {
         <p className="text-xs text-red-500">{errors.value.message}</p>
       )}
 
-      <Button className="mt-4" type="submit">
+      <Button disabled={loading} className="mt-4" type="submit">
         Send
       </Button>
     </form>

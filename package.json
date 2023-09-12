@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.1",
+    "@klever/sdk-web": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.4",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
